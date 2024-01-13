@@ -74,4 +74,13 @@ export type InitialState = {
   loading: boolean;
   meals: Array<MealType>;
   categories: Array<CategoryType>;
+  error: boolean;
+  message: string;
+  success: boolean;
+};
+
+export type APICallResponseType = {
+  data: any;
+  message: string;
+  status: number;
 };
