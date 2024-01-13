@@ -1,13 +1,19 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit';
 import {APICallResponseType, InitialState} from '../../Utils/types';
-import {getCategoryList, getMealsByName} from '../actions/actions';
+import {
+  getCategoryList,
+  getMealsByName,
+  getRandomMeals,
+} from '../actions/actions';
 export const initialState: InitialState = {
-  loading: false,
+  loading: true,
   categories: [],
   meals: [],
   error: false,
   success: false,
   message: '',
+  randomMeals: [],
+  isRandomMealsLoading: true,
 };
 
 export const reducer = createSlice({
@@ -56,8 +62,29 @@ export const reducer = createSlice({
           }
           state.loading = false;
         },
+      )
+      // *********** getCategoryList END *********** \\
+      // *********** getRandomMeals START *********** \\
+      .addCase(getRandomMeals.pending, state => {
+        state.isRandomMealsLoading = true;
+        state.message = '';
+        state.success = false;
+        state.error = false;
+      })
+      .addCase(
+        getRandomMeals.fulfilled,
+        (state, action: PayloadAction<APICallResponseType>) => {
+          if (action.payload.status) {
+            state.randomMeals = action.payload.data;
+            state.success = true;
+          } else {
+            state.message = action.payload.message;
+            state.error = true;
+          }
+          state.isRandomMealsLoading = false;
+        },
       );
-    // *********** getCategoryList END *********** \\
+    // *********** getRandomMeals END *********** \\
   },
 });
 

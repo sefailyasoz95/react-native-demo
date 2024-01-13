@@ -3,7 +3,7 @@ import {
   GetCategoryListService,
   GetMealByNameService,
   GetMealSByCategoryService,
-  GetMealSuggestionsByLocationService,
+  GetRandomMealsService,
 } from '../services/services';
 
 export const getMealsByName = createAsyncThunk(
@@ -13,12 +13,9 @@ export const getMealsByName = createAsyncThunk(
   },
 );
 
-export const getMealSuggestionsByLocation = createAsyncThunk(
-  'meals/location',
-  async (location: string) => {
-    return await GetMealSuggestionsByLocationService(location);
-  },
-);
+export const getRandomMeals = createAsyncThunk('meals/random', async () => {
+  return await GetRandomMealsService();
+});
 
 export const getCategoryList = createAsyncThunk(
   'meals/categories',

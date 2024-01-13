@@ -73,10 +73,12 @@ export type AppStackParams = {
 export type InitialState = {
   loading: boolean;
   meals: Array<MealType>;
+  randomMeals: Array<MealType>;
   categories: Array<CategoryType>;
   error: boolean;
   message: string;
   success: boolean;
+  isRandomMealsLoading: boolean;
 };
 
 export type APICallResponseType = {

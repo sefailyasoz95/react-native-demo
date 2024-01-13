@@ -8,6 +8,7 @@ export const Colors = {
   backgroundColor: '#272D2F',
   textColor: '#D7D7D7',
   backgroundColorHalfOpacity: 'rgba(139,145,147,0.2)',
+  red: '#ff4444',
 };
 
 export const DEVICE_HEIGHT = Dimensions.get('screen').height;

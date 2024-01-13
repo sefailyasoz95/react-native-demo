@@ -1,4 +1,11 @@
-import {Image, ImageBackground, StyleSheet, Text, View} from 'react-native';
+import {
+  Image,
+  ImageBackground,
+  Pressable,
+  StyleSheet,
+  Text,
+  View,
+} from 'react-native';
 import React from 'react';
 import {CategoryType} from '../Utils/types';
 import {Colors, DEVICE_HEIGHT, DEVICE_WIDTH} from '../Utils/constants';
@@ -8,20 +15,18 @@ type Props = {
 };
 
 const Category = ({category}: Props) => {
+  const handlePress = () => {};
   return (
-    <View style={styles.container}>
+    <Pressable style={styles.container} onPress={handlePress}>
       <View style={styles.imgContainer}>
         <Image
-          src={`${category.strCategoryThumb}`}
+          src={category.strCategoryThumb}
           resizeMode="contain"
           style={styles.img}
         />
       </View>
       <Text style={styles.name}>{category.strCategory}</Text>
-      <Text style={styles.description}>
-        {category.strCategoryDescription.split('.')[0]}
-      </Text>
-    </View>
+    </Pressable>
   );
 };
 
@@ -32,8 +37,10 @@ const styles = StyleSheet.create({
     borderRadius: 15,
     margin: 5,
     backgroundColor: Colors.backgroundColorHalfOpacity,
-    padding: 10,
     width: DEVICE_WIDTH * 0.35,
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    paddingBottom: 10,
   },
   name: {
     fontWeight: 'bold',

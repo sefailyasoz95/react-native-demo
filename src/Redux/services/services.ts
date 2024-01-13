@@ -1,5 +1,6 @@
 import {HttpStatusCode} from 'axios';
 import axiosClient from '../../Utils/axiosClient';
+import {MealType} from '../../Utils/types';
 
 export const GetMealByNameService = async (mealName: string) => {
   try {
@@ -35,13 +36,23 @@ export const GetCategoryListService = async () => {
   }
 };
 
-export const GetMealSuggestionsByLocationService = async (location: string) => {
+export const GetRandomMealsService = async () => {
+  let meals = [] as MealType[];
   try {
-    const response = await axiosClient.get(`filter.php?a=${location}`);
+    const response1 = await axiosClient.get(`random.php`);
+    const response2 = await axiosClient.get(`random.php`);
+    const response3 = await axiosClient.get(`random.php`);
+    const response4 = await axiosClient.get(`random.php`);
+    const response5 = await axiosClient.get(`random.php`);
+    meals.push(response1.data.meals[0]);
+    meals.push(response2.data.meals[0]);
+    meals.push(response3.data.meals[0]);
+    meals.push(response4.data.meals[0]);
+    meals.push(response5.data.meals[0]);
     return {
-      data: response.data.meals,
+      data: meals,
       message: 'Success',
-      status: response.status,
+      status: HttpStatusCode.Ok,
     };
   } catch (error: any) {
     return {
