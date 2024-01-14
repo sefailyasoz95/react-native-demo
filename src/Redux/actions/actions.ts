@@ -1,15 +1,23 @@
 import {createAsyncThunk} from '@reduxjs/toolkit';
 import {
   GetCategoryListService,
-  GetMealByNameService,
+  GetMealsByNameService,
   GetMealSByCategoryService,
   GetRandomMealsService,
+  GetAMealByNameService,
 } from '../services/services';
 
 export const getMealsByName = createAsyncThunk(
   'meals/byname',
   async (mealName: string) => {
-    return await GetMealByNameService(mealName);
+    return await GetMealsByNameService(mealName);
+  },
+);
+
+export const getAMealByName = createAsyncThunk(
+  'meals/aMealByname',
+  async (mealName: string) => {
+    return await GetAMealByNameService(mealName);
   },
 );
 
@@ -24,7 +32,7 @@ export const getCategoryList = createAsyncThunk(
   },
 );
 
-export const getMealSuggestionsByCategory = createAsyncThunk(
+export const getMealSByCategory = createAsyncThunk(
   'meals/category',
   async (category: string) => {
     return await GetMealSByCategoryService(category);

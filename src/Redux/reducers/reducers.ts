@@ -1,7 +1,9 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit';
 import {APICallResponseType, InitialState} from '../../Utils/types';
 import {
+  getAMealByName,
   getCategoryList,
+  getMealSByCategory,
   getMealsByName,
   getRandomMeals,
 } from '../actions/actions';
@@ -14,12 +16,18 @@ export const initialState: InitialState = {
   message: '',
   randomMeals: [],
   isRandomMealsLoading: true,
+  meal: undefined,
 };
 
 export const reducer = createSlice({
   name: 'global',
   initialState,
-  reducers: {},
+  reducers: {
+    clearFetchedMeal: state => {
+      state.meal = undefined;
+      state.meals = [];
+    },
+  },
   extraReducers: builder => {
     builder
       // *********** getMealsByName START *********** \\
@@ -83,11 +91,53 @@ export const reducer = createSlice({
           }
           state.isRandomMealsLoading = false;
         },
+      )
+      // *********** getRandomMeals END *********** \\
+      // *********** getMealSByCategory START *********** \\
+      .addCase(getMealSByCategory.pending, state => {
+        state.loading = true;
+        state.message = '';
+        state.success = false;
+        state.error = false;
+      })
+      .addCase(
+        getMealSByCategory.fulfilled,
+        (state, action: PayloadAction<APICallResponseType>) => {
+          if (action.payload.status) {
+            state.meals = action.payload.data;
+            state.success = true;
+          } else {
+            state.message = action.payload.message;
+            state.error = true;
+          }
+          state.loading = false;
+        },
+      )
+      // *********** getMealSByCategory END *********** \\
+      // *********** getAMealByName START *********** \\
+      .addCase(getAMealByName.pending, state => {
+        state.loading = true;
+        state.message = '';
+        state.success = false;
+        state.error = false;
+      })
+      .addCase(
+        getAMealByName.fulfilled,
+        (state, action: PayloadAction<APICallResponseType>) => {
+          if (action.payload.status) {
+            state.meal = action.payload.data;
+            state.success = true;
+          } else {
+            state.message = action.payload.message;
+            state.error = true;
+          }
+          state.loading = false;
+        },
       );
-    // *********** getRandomMeals END *********** \\
+    // *********** getAMealByName END *********** \\
   },
 });
 
-export const {} = reducer.actions;
+export const {clearFetchedMeal} = reducer.actions;
 
 export default reducer.reducer;

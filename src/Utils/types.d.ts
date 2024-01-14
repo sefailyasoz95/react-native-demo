@@ -65,14 +65,15 @@ import {IStore} from './types';
 
 export type AppStackParams = {
   HomeScreen: undefined;
-  DetailScreen: {
-    meal: MealType;
+  MealsByCategoryScreen: {
+    category: string;
   };
 };
 
 export type InitialState = {
   loading: boolean;
   meals: Array<MealType>;
+  meal?: MealType;
   randomMeals: Array<MealType>;
   categories: Array<CategoryType>;
   error: boolean;

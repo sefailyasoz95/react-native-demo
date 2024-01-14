@@ -1,6 +1,7 @@
 import {FlatList, ListRenderItem, StyleSheet, Text, View} from 'react-native';
 import React from 'react';
 import {Colors, DEVICE_WIDTH} from '../Utils/constants';
+import Loading from './Loading';
 
 type Props = {
   title: string;
@@ -25,7 +26,7 @@ const Section = ({renderItem, title, data, loading}: Props) => {
               width: DEVICE_WIDTH,
             }}>
             {loading && data.length === 0 ? (
-              <Text style={styles.listEmptyComponent}>Loading...</Text>
+              <Loading />
             ) : (
               <Text style={styles.listEmptyComponent}>No item to show!</Text>
             )}
@@ -52,9 +53,6 @@ const styles = StyleSheet.create({
   },
   listEmptyComponent: {
     alignSelf: 'center',
-    color: Colors.white,
-    fontWeight: 'bold',
-    fontSize: 20,
-    marginTop: 15,
+    width: 100,
   },
 });

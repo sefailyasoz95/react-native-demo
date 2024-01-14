@@ -18,7 +18,9 @@ const Meal = ({meal, onPress}: Props) => {
           style={styles.img}
         />
       </View>
-      <Text style={styles.name}>{meal.strMeal}</Text>
+      <Text numberOfLines={1} style={styles.name}>
+        {meal.strMeal}
+      </Text>
     </TouchableOpacity>
   );
 };
@@ -36,6 +38,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
     paddingTop: 10,
     paddingBottom: 5,
+    height: DEVICE_WIDTH * 0.35,
   },
   name: {
     fontWeight: 'bold',

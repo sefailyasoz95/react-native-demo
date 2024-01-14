@@ -5,7 +5,7 @@ import {
 } from '@react-navigation/stack';
 import {AppStackParams} from '../Utils/types';
 import HomeScreen from '../Screens/HomeScreen';
-import DetailScreen from '../Screens/DetailScreen';
+import MealsByCategoryScreen from '../Screens/MealsByCategoryScreen';
 
 const App = createStackNavigator<AppStackParams>();
 const options: StackNavigationOptions = {
@@ -15,7 +15,10 @@ const AppStack = () => {
   return (
     <App.Navigator screenOptions={options}>
       <App.Screen name="HomeScreen" component={HomeScreen} />
-      <App.Screen name="DetailScreen" component={DetailScreen} />
+      <App.Screen
+        name="MealsByCategoryScreen"
+        component={MealsByCategoryScreen}
+      />
     </App.Navigator>
   );
 };

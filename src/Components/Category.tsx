@@ -1,21 +1,21 @@
-import {
-  Image,
-  ImageBackground,
-  Pressable,
-  StyleSheet,
-  Text,
-  View,
-} from 'react-native';
+import {Image, Pressable, StyleSheet, Text, View} from 'react-native';
 import React from 'react';
-import {CategoryType} from '../Utils/types';
-import {Colors, DEVICE_HEIGHT, DEVICE_WIDTH} from '../Utils/constants';
+import {AppStackParams, CategoryType} from '../Utils/types';
+import {Colors, DEVICE_WIDTH} from '../Utils/constants';
+import {useNavigation} from '@react-navigation/native';
+import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 
 type Props = {
   category: CategoryType;
 };
 
 const Category = ({category}: Props) => {
-  const handlePress = () => {};
+  const navigation = useNavigation<NativeStackNavigationProp<AppStackParams>>();
+  const handlePress = () => {
+    navigation.navigate('MealsByCategoryScreen', {
+      category: category.strCategory,
+    });
+  };
   return (
     <Pressable style={styles.container} onPress={handlePress}>
       <View style={styles.imgContainer}>

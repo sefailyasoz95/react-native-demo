@@ -2,11 +2,27 @@ import {HttpStatusCode} from 'axios';
 import axiosClient from '../../Utils/axiosClient';
 import {MealType} from '../../Utils/types';
 
-export const GetMealByNameService = async (mealName: string) => {
+export const GetMealsByNameService = async (mealName: string) => {
   try {
     const response = await axiosClient.get(`search.php?s=${mealName}`);
     return {
       data: response.data.meals,
+      message: 'Success',
+      status: response.status,
+    };
+  } catch (error: any) {
+    return {
+      data: null,
+      message: error?.response?.message || 'Request failed',
+      status: HttpStatusCode.BadRequest,
+    };
+  }
+};
+export const GetAMealByNameService = async (mealName: string) => {
+  try {
+    const response = await axiosClient.get(`search.php?s=${mealName}`);
+    return {
+      data: response.data.meals[0],
       message: 'Success',
       status: response.status,
     };
@@ -39,6 +55,11 @@ export const GetCategoryListService = async () => {
 export const GetRandomMealsService = async () => {
   let meals = [] as MealType[];
   try {
+    /* 
+      NOTE: This API's free version only provides one random meal at a time.
+      In order to to fill out the home screen with a few random meals
+      I had to come up with something like this.
+    */
     const response1 = await axiosClient.get(`random.php`);
     const response2 = await axiosClient.get(`random.php`);
     const response3 = await axiosClient.get(`random.php`);
