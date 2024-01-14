@@ -42,9 +42,11 @@ const HomeScreen = ({navigation, route}: Props) => {
   const handleSearch = (
     event: NativeSyntheticEvent<TextInputEndEditingEventData>,
   ) => {
-    navigation.navigate('SearchResultScreen', {
-      searchValue: event.nativeEvent.text,
-    });
+    if (event.nativeEvent.text.trim() !== '') {
+      navigation.navigate('SearchResultScreen', {
+        searchValue: event.nativeEvent.text,
+      });
+    }
   };
   const onBottomSheetChange = (index: number) => {
     if (index === 0) {
@@ -74,6 +76,7 @@ const HomeScreen = ({navigation, route}: Props) => {
             placeholderTextColor={'#7d7d7d'}
             style={styles.input}
             enterKeyHint="search"
+            clearTextOnFocus
             onEndEditing={handleSearch}
           />
         </View>
