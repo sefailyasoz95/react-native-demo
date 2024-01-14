@@ -1,13 +1,13 @@
 import {
-  Alert,
   Image,
-  Linking,
+  NativeSyntheticEvent,
   Pressable,
   SafeAreaView,
   ScrollView,
   StyleSheet,
   Text,
   TextInput,
+  TextInputEndEditingEventData,
   View,
 } from 'react-native';
 import React, {useEffect, useMemo, useRef, useState} from 'react';
@@ -22,7 +22,6 @@ import BottomSheet from '@gorhom/bottom-sheet';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import {RouteProp} from '@react-navigation/native';
 import useYouTube from '../Hooks/useYouTube';
-import Loading from '../Components/Loading';
 
 type Props = {
   navigation: NativeStackNavigationProp<AppStackParams, 'HomeScreen'>;
@@ -31,11 +30,7 @@ type Props = {
 
 const HomeScreen = ({navigation, route}: Props) => {
   const bottomSheetRef = useRef<BottomSheet>(null);
-  const [searchValue, setSearchValue] = useState<string>();
   const snapPoints = useMemo(() => ['1%', '85%'], []);
-  const onChangeText = (value: string) => {
-    setSearchValue(value);
-  };
   const {openYouTubeLink} = useYouTube();
   const onYouTubePress = async () => {
     openYouTubeLink(selectedMeal!.strYoutube);
@@ -43,8 +38,14 @@ const HomeScreen = ({navigation, route}: Props) => {
   const [selectedMeal, setSelectedMeal] = useState<MealType>();
   const {loading, categories, randomMeals, isRandomMealsLoading, meal} =
     useAppSelector(state => state.global);
-  console.log('meal: ', meal);
 
+  const handleSearch = (
+    event: NativeSyntheticEvent<TextInputEndEditingEventData>,
+  ) => {
+    navigation.navigate('SearchResultScreen', {
+      searchValue: event.nativeEvent.text,
+    });
+  };
   const onBottomSheetChange = (index: number) => {
     if (index === 0) {
       bottomSheetRef.current?.close();
@@ -70,9 +71,10 @@ const HomeScreen = ({navigation, route}: Props) => {
           <Text style={styles.headerText}>Search</Text>
           <TextInput
             placeholder="Enter some ingredients or a meal name"
-            onChangeText={onChangeText}
             placeholderTextColor={'#7d7d7d'}
             style={styles.input}
+            enterKeyHint="search"
+            onEndEditing={handleSearch}
           />
         </View>
       </View>

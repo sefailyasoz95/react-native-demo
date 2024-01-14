@@ -6,6 +6,7 @@ import {
 import {AppStackParams} from '../Utils/types';
 import HomeScreen from '../Screens/HomeScreen';
 import MealsByCategoryScreen from '../Screens/MealsByCategoryScreen';
+import SearchResultScreen from '../Screens/SearchResultScreen';
 
 const App = createStackNavigator<AppStackParams>();
 const options: StackNavigationOptions = {
@@ -19,6 +20,7 @@ const AppStack = () => {
         name="MealsByCategoryScreen"
         component={MealsByCategoryScreen}
       />
+      <App.Screen name="SearchResultScreen" component={SearchResultScreen} />
     </App.Navigator>
   );
 };

@@ -68,6 +68,9 @@ export type AppStackParams = {
   MealsByCategoryScreen: {
     category: string;
   };
+  SearchResultScreen: {
+    searchValue: string;
+  };
 };
 
 export type InitialState = {
