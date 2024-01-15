@@ -10,11 +10,15 @@ type Props = {
 
 const Meal = ({meal, onPress}: Props) => {
   return (
-    <TouchableOpacity onPress={onPress} style={styles.container}>
+    <TouchableOpacity
+      onPress={onPress}
+      style={styles.container}
+      testID="meal-container">
       <View style={styles.imgContainer}>
         <Image
           src={meal.strMealThumb}
           resizeMode="contain"
+          testID="meal-image"
           style={styles.img}
         />
       </View>

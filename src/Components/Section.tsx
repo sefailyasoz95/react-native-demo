@@ -17,6 +17,7 @@ const Section = ({renderItem, title, data, loading}: Props) => {
       <FlatList
         data={data}
         renderItem={renderItem}
+        testID="section-flatlist"
         horizontal
         showsHorizontalScrollIndicator={false}
         snapToInterval={DEVICE_WIDTH * 0.35 + 10}
@@ -28,7 +29,9 @@ const Section = ({renderItem, title, data, loading}: Props) => {
             {loading && data.length === 0 ? (
               <Loading />
             ) : (
-              <Text style={styles.listEmptyComponent}>No item to show!</Text>
+              <Text testID="no-item" style={styles.listEmptyComponent}>
+                No item to show!
+              </Text>
             )}
           </View>
         )}

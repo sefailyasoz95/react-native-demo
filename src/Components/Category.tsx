@@ -17,12 +17,16 @@ const Category = ({category}: Props) => {
     });
   };
   return (
-    <Pressable style={styles.container} onPress={handlePress}>
+    <Pressable
+      style={styles.container}
+      onPress={handlePress}
+      testID="category-pressable">
       <View style={styles.imgContainer}>
         <Image
           src={category.strCategoryThumb}
           resizeMode="contain"
           style={styles.img}
+          testID="category-image"
         />
       </View>
       <Text style={styles.name}>{category.strCategory}</Text>

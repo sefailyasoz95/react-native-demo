@@ -4,6 +4,7 @@ import LottieView from 'lottie-react-native';
 const Loading = () => {
   return (
     <LottieView
+      testID="loading-lottie"
       autoPlay={true}
       loop={true}
       resizeMode="contain"
