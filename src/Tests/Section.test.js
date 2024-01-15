@@ -52,4 +52,19 @@ describe('Section Component', () => {
     const loadingComponent = getByTestId('loading-lottie');
     expect(loadingComponent).toBeTruthy();
   });
+
+  it('renders no item to show section when list is empty', () => {
+    const {getByTestId} = render(
+      <Section
+        title="Test Section"
+        data={[]}
+        renderItem={mockRenderItem}
+        loading={false}
+      />,
+    );
+
+    // Check if the no item tesxt is rendered
+    const noItemToShow = getByTestId('no-item');
+    expect(noItemToShow).toBeTruthy();
+  });
 });
